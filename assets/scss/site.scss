@@ -1,0 +1,15 @@
+.app-navbar {
+    background-color: aqua;
+
+    :hover {
+        color: red !important;
+    }
+
+    .navbar-brand {
+        color: rgb(235 43 12) !important;
+
+        &:hover {
+            color: white !important;
+        }
+    }
+}

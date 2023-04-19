@@ -1,0 +1,58 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+.app-navbar {
+    background-color: aqua;
+        :hover{color: red !important;}
+    .navbar-brand {
+    color: rgb(235 43 12) !important;
+
+    &:hover{color: white !important;}
+    }
+}
+
+.contact-firstcol {
+    background-color: aqua;
+    color: #7c3535;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 15px;
+    .heading5{
+          line-height:30px;
+          font-weight:400;
+          margin-top:20px;
+      }
+     .img-fisrtcol {
+        height:50px;
+    }
+}
+.formcontact {
+    .control-label{
+             font-weight:700;
+       }
+    .btn {
+        background-color: aqua;
+        border-color: aqua;
+        color: #7c3535;
+        font-weight: 700;
+    }
+}
