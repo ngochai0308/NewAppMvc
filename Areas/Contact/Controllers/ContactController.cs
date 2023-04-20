@@ -8,18 +8,26 @@ using Microsoft.EntityFrameworkCore;
 using AppMvc.Models.Contact;
 using NewAppMvc.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using NewAppMvc.Data;
 
 namespace NewAppMvc.Areas.Contact.Controllers
 {
     [Area("Contact")]
+    [Authorize(Roles = RoleName.Administrator)]
     public class ContactController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public ContactController(AppDbContext context)
+        public ContactController(AppDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
+
 
         // GET: Contact/Contact
         [HttpGet("/admin/contact")]
@@ -106,6 +114,39 @@ namespace NewAppMvc.Areas.Contact.Controllers
             }
             
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        [Route("/SeedData")]
+        public async Task<IActionResult> SeedData()
+        {
+            //Created roles
+            var rolenames = typeof(RoleName).GetFields().ToList();
+            foreach(var r in rolenames)
+            {
+                var rolename = (string)r.GetRawConstantValue();
+                var rfound = await _roleManager.FindByNameAsync(rolename);
+                if(rfound == null)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(rolename));
+                }
+            }
+
+            //admin,pass admin123,admin@gmail.com
+
+            var useradmin = await _userManager.FindByNameAsync("admin");
+            if(useradmin == null)
+            {
+                useradmin = new AppUser()
+                {
+                    UserName = "admin",
+                    Email = "admin@gmail.com",
+                    EmailConfirmed = true,
+                };
+
+                await _userManager.CreateAsync(useradmin, "admin123");
+                await _userManager.AddToRoleAsync(useradmin, RoleName.Administrator);
+            }
+            StatusMessage = "Vua seed Database";
             return RedirectToAction(nameof(Index));
         }
 

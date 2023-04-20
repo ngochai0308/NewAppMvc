@@ -28,13 +28,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Contact" asp-controller="Contact" asp-action="SendContact">Liên hệ</a>
                         </li>
-                    </ul>
+                    </ul> 
                     <div class="nav-item">
-                        <a class="dropdown-item" asp-action="Index" asp-controller="Contact" asp-area="Contact">
-                            Quản lí liên hệ
-                        </a>
+                        <partial name="_LoginPartial" />
                     </div>
-                    
+                    <div class="nav-item">
+                        <partial name="_MenuManagePartial" />
                 </div>
             </div>
         </nav>
